@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zgms.xuefu.mapper.BuildingMapper">
+
+
+    <insert id="insert">
+        insert ignore into tb_building(create_time, update_time, name) VALUES (#{createTime},#{updateTime},#{name})
+    </insert>
+    <select id="selectId" resultType="java.lang.Integer">
+        select id from tb_building where name=#{name};
+    </select>
+</mapper>
