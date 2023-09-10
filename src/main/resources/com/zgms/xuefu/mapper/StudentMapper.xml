@@ -5,7 +5,7 @@
 <mapper namespace="com.zgms.xuefu.mapper.StudentMapper">
 
     <insert id="insert">
-        insert ignore into tb_student(create_time, update_time, name,building)
+        insert ignore into tb_life_commissioner(create_time, update_time, name,building)
         VALUES (#{createTime}, #{updateTime}, #{name},#{building})
     </insert>
 </mapper>

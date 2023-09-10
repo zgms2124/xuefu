@@ -128,55 +128,67 @@ class XuefuApplicationTests {
 
     @Test
     public void generateStudent(){
-        String[][] sh14=new String[20][5];
-        String[][] sh27=new String[20][5];
-        String[][][] sh28=new String[20][5][2];
-        String[][] sh29=new String[20][5];
-        Queue<String> sh14name=new ArrayDeque<>();
-        Queue<String> sh27name=new ArrayDeque<>();
-        Queue<String> sh28name=new ArrayDeque<>();
-        Queue<String> sh29name=new ArrayDeque<>();
-        List<Student> list14=studentMapper.selectByBuilding(buildingMapper.selectId("升华14栋"));
-        List<Student> list27=studentMapper.selectByBuilding(buildingMapper.selectId("升华27栋"));
-        List<Student> list28=studentMapper.selectByBuilding(buildingMapper.selectId("升华28栋北"));
-        List<Student> list29=studentMapper.selectByBuilding(buildingMapper.selectId("升华29栋"));
-        for(Student student:list14){
-            sh14name.add(student.getName());
-        }
-        for(Student student:list27){
-            sh27name.add(student.getName());
-        }
-        for(Student student:list28){
-            sh28name.add(student.getName());
-        }
-        for(Student student:list29){
-            sh29name.add(student.getName());
-        }
+        String[][] sh14=generateDmtr("升华14栋");
+        String[][] sh27=generateDmtr("升华27栋");
+        String[][][] sh28=generateDmtr28("升华28栋北");
+        String[][] sh29=generateDmtr("升华29栋");
+        String[][] td2=generateDmtr("铁道2舍");
+        String[][] td11=generateDmtr("铁道11舍");
+        String[][] tdnew2=generateDmtr("铁道新2舍");
+        String[][] tdnew1=generateDmtr("铁道新1舍");
         for(int i=0;i<20;i++){
             System.out.println("第"+(i+1)+"周安排");
             System.out.println(" 升华14栋 28栋北 升华27栋 升华29栋");
             for(int j=0;j<5;j++){
 //                if(j==0) System.out.print("星期7");
 //                else System.out.println("星期"+j);
-                sh14[i][j]=sh14name.poll();
-                sh14name.add(sh14[i][j]);
-
-                sh27[i][j]=sh27name.poll();
-                sh27name.add(sh27[i][j]);
-
-                sh28[i][j][0]=sh28name.poll();
-                sh28name.add(sh28[i][j][0]);
-
-                sh28[i][j][1]=sh28name.poll();
-                sh28name.add(sh28[i][j][1]);
-
-                sh29[i][j]=sh29name.poll();
-                sh29name.add(sh29[i][j]);
-
-
                 System.out.println(sh14[i][j]+"\t"+sh28[i][j][0]+"、"+sh28[i][j][1]+"\t"+sh27[i][j]+"\t"+sh29[i][j]);
             }
         }
+
+        for(int i=0;i<20;i++){
+            System.out.println("第"+(i+1)+"周安排");
+            System.out.println("铁道2舍    铁道11舍   铁道新2舍   铁道新1舍");
+            for(int j=0;j<5;j++){
+//                if(j==0) System.out.print("星期7");
+//                else System.out.println("星期"+j);
+                System.out.println(td2[i][j]+"\t"+td11[i][j]+"\t"+tdnew2[i][j]+"\t"+tdnew1[i][j]);
+            }
+        }
+    }
+
+    private String[][][] generateDmtr28(String name) {
+        Queue<String> dmtrname=new ArrayDeque<>();
+        List<Student> list=studentMapper.selectByBuilding(buildingMapper.selectId(name));
+        for(Student student:list){
+            dmtrname.add(student.getName());
+        }
+        String[][][] dmtr=new String[20][5][2];
+        for(int i=0;i<20;i++){
+            for(int j=0;j<5;j++){
+                dmtr[i][j][0]=dmtrname.poll();
+                dmtrname.add(dmtr[i][j][0]);
+                dmtr[i][j][1]=dmtrname.poll();
+                dmtrname.add(dmtr[i][j][1]);
+            }
+        }
+        return dmtr;
+    }
+
+    private String[][] generateDmtr(String name) {
+        Queue<String> dmtrname=new ArrayDeque<>();
+        List<Student> list=studentMapper.selectByBuilding(buildingMapper.selectId(name));
+        for(Student student:list){
+            dmtrname.add(student.getName());
+        }
+        String[][] dmtr=new String[20][5];
+        for(int i=0;i<20;i++){
+            for(int j=0;j<5;j++){
+                dmtr[i][j]=dmtrname.poll();
+                dmtrname.add(dmtr[i][j]);
+            }
+        }
+        return dmtr;
     }
 
 
@@ -219,7 +231,7 @@ class XuefuApplicationTests {
 
     @Test
     void insertSTudent(){
-        initStudent("升华14栋");
+        initStudent("铁道新2舍");
     }
 
     private void initStudent(String building) {
@@ -230,11 +242,131 @@ class XuefuApplicationTests {
             if("over".equals(name)){
                 break;
             }
-            Student student=new Student(LocalDateTime.now(), LocalDateTime.now(), name,buildingMapper.selectId(building) );
+            Student student=new Student(LocalDateTime.now(), LocalDateTime.now(), name,buildingMapper.selectId(building),0);
             studentMapper.insert(student);
             System.out.println("录入成功！");
         }
     }
 
+    @Test
+    public void insertTDDmtr(){
+        Scanner scanner=new Scanner(System.in);
+        while(true){
+            int num=scanner.nextInt();
+            if(num==0) break;
+            dmtrMapper.insert(new Dmtr(LocalDateTime.now(),LocalDateTime.now(),num,buildingMapper.selectId("铁道新1舍"),majorMapper.selectId("通信")));
+        }
+    }
 
+    @Test
+    public void selectDmtr(){
+        List<Dmtr> sh14=dmtrMapper.selectByBuilding(buildingMapper.selectId("升华28栋北"));
+        HashSet<Integer> set14=new HashSet<>();
+        for(Dmtr dmtr:sh14){
+            set14.add(dmtr.getNum());
+        }
+        int []arr =new int[set14.size()];
+        int r=0;
+        for(int num:set14){
+            arr[r++]=num;
+        }
+        Arrays.sort(arr);
+        for(int num:arr){
+            System.out.print(num+"、");
+        }
+    }
+
+    @Test
+    public void deletes(){
+        System.out.println(studentMapper.selectCount());
+        Scanner scanner=new Scanner(System.in);
+        while (true){
+            String name=scanner.nextLine();
+            studentMapper.delete(name);
+        }
+    }
+
+    @Test
+    public void countNoCheck(){
+        HashSet<Integer> set=initSet();
+        countSet(set);
+    }
+
+    public HashSet<Integer> initSet(){
+        HashSet<Integer> set=new HashSet<>();
+        System.out.println("统计总宿舍开始");
+        Scanner scanner=new Scanner(System.in);
+        int cnt=1;
+        while(true){
+            String str=scanner.next();
+            if("over".equals(str)) break;
+            String[] strs=str.split("，");
+            for(String cur:strs){
+                String[] dd=cur.split("-");
+                if(dd.length==1) set.add(Integer.valueOf(dd[0]));
+                else {
+                    for (int i = Integer.valueOf(dd[0]); i <= Integer.valueOf(dd[1]); i++) {
+                        set.add(i);
+                    }
+                }
+            }
+        }
+        System.out.println("统计总宿舍结束");
+        return set;
+    }
+
+    public void countSet(HashSet<Integer> set){
+        Scanner scanner=new Scanner(System.in);
+        while(true){
+            String str=scanner.next();
+            if("over".equals(str)) break;
+            String[]list=str.split("、");
+            for(String cur:list){
+                set.remove(Integer.valueOf(cur));
+            }
+        }
+
+        for(int cur:set) System.out.println(cur);
+    }
+
+    @Test
+    public void selectStudent(){
+        List<Student> list=studentMapper.selectByBuilding(buildingMapper.selectId("铁道新2舍"));
+        for(Student student:list){
+            System.out.println(student.getName());
+        }
+    }
+
+    @Test
+    public void countDmtr(){
+
+//        HashSet<Integer> set=new HashSet<>();
+//        List<Integer> list1= dmtrMapper.selectByBuildingAndMajor(majorMapper.selectId("软工"), buildingMapper.selectId("铁道新1舍"));
+//        List<Integer> list2= dmtrMapper.selectByBuildingAndMajor(majorMapper.selectId("软工"), buildingMapper.selectId("铁道2舍"));
+//        for(int cur:list1) set.add(cur);
+//        for(int cur:list2) set.add(cur);
+//        System.out.println(set.size());
+
+        while(true){
+            Scanner scanner=new Scanner(System.in);
+            int num=scanner.nextInt();
+            List<Integer> list=dmtrMapper.selectByBuildingAndNum(buildingMapper.selectId("升华28栋北"),num);
+            if(list!=null&&list.size()>0)
+            System.out.println(majorMapper.selectName(list.get(0)));
+
+        }
+//        List<Integer> list3= dmtrMapper.selectByBuildingAndMajor(majorMapper.selectId("物联网"), buildingMapper.selectId("升华14栋"));
+//        for(int cur:list3) set.add(cur);
+//        System.out.println(set.size());
+    }
+
+    @Test
+    public void devideNum(){
+
+        Scanner scanner=new Scanner(System.in);
+        while (true){
+            int a=scanner.nextInt(),b=scanner.nextInt();
+            System.out.println((float) a/b);
+        }
+    }
 }

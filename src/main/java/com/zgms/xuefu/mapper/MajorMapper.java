@@ -26,4 +26,7 @@ public interface MajorMapper {
     public List<Major> select();
 
     public int selectId(String name);
+
+    @Select("select name from tb_major where id =#{id}")
+    public String selectName(int id);
 }

@@ -18,15 +18,17 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class Student {
     private Integer id;
+    private Integer cnt;
     private LocalDateTime createTime;
     private LocalDateTime updateTime;
     private String name;
     private int building;
 
-    public Student(LocalDateTime createTime, LocalDateTime updateTime, String name, int building) {
+    public Student(LocalDateTime createTime, LocalDateTime updateTime, String name, int building,int cnt) {
         this.createTime = createTime;
         this.updateTime = updateTime;
         this.name = name;
         this.building = building;
+        this.cnt=cnt;
     }
 }
