@@ -335,8 +335,8 @@ class XuefuApplicationTests {
         for(Student student:list){
             System.out.println(student.getName());
         }
-    }
 
+}
     @Test
     public void countDmtr(){
 
@@ -347,17 +347,61 @@ class XuefuApplicationTests {
 //        for(int cur:list2) set.add(cur);
 //        System.out.println(set.size());
 
-        while(true){
-            Scanner scanner=new Scanner(System.in);
-            int num=scanner.nextInt();
-            List<Integer> list=dmtrMapper.selectByBuildingAndNum(buildingMapper.selectId("升华28栋北"),num);
-            if(list!=null&&list.size()>0)
-            System.out.println(majorMapper.selectName(list.get(0)));
-
-        }
+//        countDmtrSigal("升华14栋");
+//        countDmtrSigal("升华28栋北");
+//        countDmtrSigal("升华27栋");
+//        countDmtrSigal("升华29栋");
+        countDmtrSigal("铁道2舍");
+//        countDmtrSigal("铁道11舍");
+//        countDmtrSigal("铁道新2舍");
+//        countDmtrSigal("铁道新1舍");
 //        List<Integer> list3= dmtrMapper.selectByBuildingAndMajor(majorMapper.selectId("物联网"), buildingMapper.selectId("升华14栋"));
 //        for(int cur:list3) set.add(cur);
 //        System.out.println(set.size());
+    }
+
+    public void countDmtrSigal(String dmtr){
+        System.out.println("记录"+dmtr);
+            Scanner scanner=new Scanner(System.in);
+            String str=scanner.nextLine();
+            List<Integer> listNum=new LinkedList<>();
+            int num=0;
+            for(int i=0;i<str.length();i++){
+                char c=str.charAt(i);
+                if(c<='9'&&c>='0') {
+                    num=num*10+(c-'0');
+                }
+                else {
+                    if(num!=0)
+                    listNum.add(num);
+                    num=0;
+                }
+            }
+            if(num!=0)
+            listNum.add(num);
+            HashMap<String,List<Integer>> map=new HashMap<>();
+            for(int cur:listNum){
+                List<Integer> list=dmtrMapper.selectByBuildingAndNum(buildingMapper.selectId(dmtr),cur);
+                if(list!=null&&list.size()>0) {
+                    String major= majorMapper.selectName(list.get(0));
+                    if(!map.containsKey(major)){
+                        map.put(major,new LinkedList<>());
+                    }
+                    map.get(major).add(cur);
+                }
+            }
+            for(Map.Entry<String,List<Integer>> curMap:map.entrySet()){
+                System.out.print(curMap.getKey());
+                List<Integer> numList=curMap.getValue();
+                System.out.print(numList.get(0));
+                numList.remove(0);
+                for(int cur:numList){
+                    System.out.print("、"+cur);
+                }
+                System.out.println();
+            }
+
+        System.out.println("记录结束");
     }
 
     @Test
