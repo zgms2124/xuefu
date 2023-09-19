@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
  */
 @Data
 @NoArgsConstructor
-public class Student {
+public class LifeCommissioner {
     private Integer id;
     private Integer cnt;
     private LocalDateTime createTime;
@@ -24,7 +24,7 @@ public class Student {
     private String name;
     private int building;
 
-    public Student(LocalDateTime createTime, LocalDateTime updateTime, String name, int building,int cnt) {
+    public LifeCommissioner(LocalDateTime createTime, LocalDateTime updateTime, String name, int building, int cnt) {
         this.createTime = createTime;
         this.updateTime = updateTime;
         this.name = name;

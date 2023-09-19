@@ -1,7 +1,6 @@
 package com.zgms.xuefu.mapper;
 
-import com.zgms.xuefu.pojo.Student;
-import net.sf.jsqlparser.expression.DateTimeLiteralExpression;
+import com.zgms.xuefu.pojo.LifeCommissioner;
 import org.apache.ibatis.annotations.*;
 
 import java.time.LocalDateTime;
@@ -17,22 +16,26 @@ import java.util.List;
  * @功能：
  */
 @Mapper
-public interface StudentMapper {
+public interface LifeCommissonerMapper {
 
     @Options(keyProperty = "id",useGeneratedKeys = true)
-    public void insert(Student student);
+    public void insert(LifeCommissioner lifeCommissioner);
 
     @Select("select * from tb_life_commissioner")
-    public List<Student> selectAll();
+    public List<LifeCommissioner> selectAll();
 
     @Select("select count(*) from tb_life_commissioner")
     public int selectCount();
 
     @Select("select *from tb_life_commissioner where building=#{building}")
-    public List<Student> selectByBuilding(int building);
+    public List<LifeCommissioner> selectByBuilding(int building);
+
+
+    @Select("select name from tb_life_commissioner where building=#{building}")
+    public List<String> selectNameByBuilding(int building);
 
     @Select("select * from tb_life_commissioner where name=#{name}")
-    public Student selectByName(String name);
+    public LifeCommissioner selectByName(String name);
 
     @Delete("delete from tb_life_commissioner where name=#{name}")
     public void delete(String name);

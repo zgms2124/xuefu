@@ -1,12 +1,7 @@
 package com.zgms.xuefu.mapper;
 
 import com.zgms.xuefu.pojo.Dmtr;
-import com.zgms.xuefu.pojo.Student;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Options;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -31,6 +26,13 @@ public interface DmtrMapper {
     public List<Integer> selectByBuildingAndMajor(@Param("major") int major, @Param("building") int building);
 
 
+    @Select("select id from tb_dmtr where building=#{building}")
+    public List<Integer> selectIdByBuildingAndMajor(@Param("building") int building);
+
+
     @Select("select major from tb_dmtr where num=#{num} and building=#{building}")
     public List<Integer> selectByBuildingAndNum(@Param("building") int building, @Param("num") int num);
+
+    @Update("update tb_dmtr set year=#{year} where id=#{id}")
+    public void addYear(@Param("id")int id,@Param("year")int year);
 }

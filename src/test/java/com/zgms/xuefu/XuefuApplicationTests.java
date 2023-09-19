@@ -3,16 +3,15 @@ package com.zgms.xuefu;
 import com.zgms.xuefu.mapper.BuildingMapper;
 import com.zgms.xuefu.mapper.DmtrMapper;
 import com.zgms.xuefu.mapper.MajorMapper;
-import com.zgms.xuefu.mapper.StudentMapper;
+import com.zgms.xuefu.mapper.LifeCommissonerMapper;
 import com.zgms.xuefu.pojo.Building;
 import com.zgms.xuefu.pojo.Dmtr;
 import com.zgms.xuefu.pojo.Major;
-import com.zgms.xuefu.pojo.Student;
+import com.zgms.xuefu.pojo.LifeCommissioner;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.sql.Time;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -29,7 +28,7 @@ class XuefuApplicationTests {
     private DmtrMapper dmtrMapper;
 
     @Autowired
-    private StudentMapper studentMapper;
+    private LifeCommissonerMapper lifeCommissonerMapper;
 
     @Test
     void contextLoads() {
@@ -159,9 +158,9 @@ class XuefuApplicationTests {
 
     private String[][][] generateDmtr28(String name) {
         Queue<String> dmtrname=new ArrayDeque<>();
-        List<Student> list=studentMapper.selectByBuilding(buildingMapper.selectId(name));
-        for(Student student:list){
-            dmtrname.add(student.getName());
+        List<LifeCommissioner> list= lifeCommissonerMapper.selectByBuilding(buildingMapper.selectId(name));
+        for(LifeCommissioner lifeCommissioner :list){
+            dmtrname.add(lifeCommissioner.getName());
         }
         String[][][] dmtr=new String[20][5][2];
         for(int i=0;i<20;i++){
@@ -177,9 +176,9 @@ class XuefuApplicationTests {
 
     private String[][] generateDmtr(String name) {
         Queue<String> dmtrname=new ArrayDeque<>();
-        List<Student> list=studentMapper.selectByBuilding(buildingMapper.selectId(name));
-        for(Student student:list){
-            dmtrname.add(student.getName());
+        List<LifeCommissioner> list= lifeCommissonerMapper.selectByBuilding(buildingMapper.selectId(name));
+        for(LifeCommissioner lifeCommissioner :list){
+            dmtrname.add(lifeCommissioner.getName());
         }
         String[][] dmtr=new String[20][5];
         for(int i=0;i<20;i++){
@@ -242,8 +241,8 @@ class XuefuApplicationTests {
             if("over".equals(name)){
                 break;
             }
-            Student student=new Student(LocalDateTime.now(), LocalDateTime.now(), name,buildingMapper.selectId(building),0);
-            studentMapper.insert(student);
+            LifeCommissioner lifeCommissioner =new LifeCommissioner(LocalDateTime.now(), LocalDateTime.now(), name,buildingMapper.selectId(building),0);
+            lifeCommissonerMapper.insert(lifeCommissioner);
             System.out.println("录入成功！");
         }
     }
@@ -278,11 +277,11 @@ class XuefuApplicationTests {
 
     @Test
     public void deletes(){
-        System.out.println(studentMapper.selectCount());
+        System.out.println(lifeCommissonerMapper.selectCount());
         Scanner scanner=new Scanner(System.in);
         while (true){
             String name=scanner.nextLine();
-            studentMapper.delete(name);
+            lifeCommissonerMapper.delete(name);
         }
     }
 
@@ -331,9 +330,9 @@ class XuefuApplicationTests {
 
     @Test
     public void selectStudent(){
-        List<Student> list=studentMapper.selectByBuilding(buildingMapper.selectId("铁道新2舍"));
-        for(Student student:list){
-            System.out.println(student.getName());
+        List<LifeCommissioner> list= lifeCommissonerMapper.selectByBuilding(buildingMapper.selectId("铁道新2舍"));
+        for(LifeCommissioner lifeCommissioner :list){
+            System.out.println(lifeCommissioner.getName());
         }
 
 }
