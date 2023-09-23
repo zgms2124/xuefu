@@ -24,8 +24,8 @@ public interface LifeCommissonerMapper {
     @Select("select * from tb_life_commissioner")
     public List<LifeCommissioner> selectAll();
 
-    @Select("select count(*) from tb_life_commissioner")
-    public int selectCount();
+    @Select("select cnt from tb_life_commissioner where name=#{name}")
+    public int selectCount(String name);
 
     @Select("select *from tb_life_commissioner where building=#{building}")
     public List<LifeCommissioner> selectByBuilding(int building);

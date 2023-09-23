@@ -1,9 +1,6 @@
 package com.zgms.xuefu;
 
 import com.alibaba.excel.EasyExcel;
-import com.alibaba.excel.ExcelWriter;
-import com.alibaba.excel.write.metadata.WriteSheet;
-import com.zgms.xuefu.easyexcel.dto.Week;
 import com.zgms.xuefu.easyexcel.dto.WeekMag;
 import com.zgms.xuefu.mapper.BuildingMapper;
 import com.zgms.xuefu.mapper.LifeCommissonerMapper;
@@ -70,11 +67,11 @@ public class WeekMagTest {
 
         List<List<WeekMag>> weeklist=new LinkedList<>();
         weeklist.add(generateSingal("升华14栋",sh14,"宿舍信息：542-549，601-638，640-649，701-727",week));
-        weeklist.add(generateSingal("升华28栋北",sh28b,"宿舍信息：102-136，201-208，221-234，326-328，334-337，701-718，720-725",week));
+        weeklist.add(generateSingal("升华28栋北",sh28b,"宿舍信息：102-117，119-136，201-208，221-234，326-328，334-337，701-718，720-725",week));
         weeklist.add(generateSingal("升华27栋",sh27,"宿舍信息：410，412-419，421-437",week));
         weeklist.add(generateSingal("升华29栋",sh29,"宿舍信息：108，112-117，201-213，506-510",week));
-        weeklist.add(generateSingal("铁道2舍",td2,"宿舍信息：110、114、126、130、319、326、328、329、330、333、401-410，413-415，419，421-433，511-529",week));
-        weeklist.add(generateSingal("铁道十一舍",td11,"宿舍信息：201-206，401-410，412，413，501-510，512-519，601-610，612-619",week));
+        weeklist.add(generateSingal("铁道2舍",td2,"宿舍信息：110，114，126，130，319，326，328-330，333，401-410，413-415，419，421-433，511-521，523，529",week));
+        weeklist.add(generateSingal("铁道十一舍",td11,"宿舍信息：401-410，412，413，501-510，512-519，601-610，612-619",week));
         weeklist.add(generateSingal("铁道新二舍",tdnew2,"宿舍信息：101-108，124-128，224",week));
         weeklist.add(generateSingal("铁道新一舍",tdnew1,"宿舍信息：203-214",week));
 

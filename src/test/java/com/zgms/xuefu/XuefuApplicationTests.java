@@ -98,97 +98,11 @@ class XuefuApplicationTests {
 
     }
 
-    @Test
-    void insetrDmtr(){
-//        initDmtr();
-        initDmtrByNum("大数据","升华14栋");
-        initDmtrByNum("计算机","升华14栋");
-        initDmtrByNum("信安","升华14栋");
 
-        initDmtrByNum("大数据","升华27栋");
-        initDmtrByNum("计算机","升华27栋");
-        initDmtrByNum("信安","升华27栋");
 
-    }
 
-    private void initDmtrByNum(String major,String building) {
-        System.out.println("现在导入的是"+building+major);
-        Scanner scanner=new Scanner(System.in);
-        while(true){
-            int begin=scanner.nextInt();
-            int over=scanner.nextInt();
-            if(begin==0&&over==0) break;
-            for(int i=begin;i<=over;i++){
-                dmtrMapper.insert(new Dmtr(LocalDateTime.now(),LocalDateTime.now(),
-                        i,buildingMapper.selectId(building),majorMapper.selectId(major)));
-            }
-        }
-    }
 
-    @Test
-    public void generateStudent(){
-        String[][] sh14=generateDmtr("升华14栋");
-        String[][] sh27=generateDmtr("升华27栋");
-        String[][][] sh28=generateDmtr28("升华28栋北");
-        String[][] sh29=generateDmtr("升华29栋");
-        String[][] td2=generateDmtr("铁道2舍");
-        String[][] td11=generateDmtr("铁道11舍");
-        String[][] tdnew2=generateDmtr("铁道新2舍");
-        String[][] tdnew1=generateDmtr("铁道新1舍");
-        for(int i=0;i<20;i++){
-            System.out.println("第"+(i+1)+"周安排");
-            System.out.println(" 升华14栋 28栋北 升华27栋 升华29栋");
-            for(int j=0;j<5;j++){
-//                if(j==0) System.out.print("星期7");
-//                else System.out.println("星期"+j);
-                System.out.println(sh14[i][j]+"\t"+sh28[i][j][0]+"、"+sh28[i][j][1]+"\t"+sh27[i][j]+"\t"+sh29[i][j]);
-            }
-        }
 
-        for(int i=0;i<20;i++){
-            System.out.println("第"+(i+1)+"周安排");
-            System.out.println("铁道2舍    铁道11舍   铁道新2舍   铁道新1舍");
-            for(int j=0;j<5;j++){
-//                if(j==0) System.out.print("星期7");
-//                else System.out.println("星期"+j);
-                System.out.println(td2[i][j]+"\t"+td11[i][j]+"\t"+tdnew2[i][j]+"\t"+tdnew1[i][j]);
-            }
-        }
-    }
-
-    private String[][][] generateDmtr28(String name) {
-        Queue<String> dmtrname=new ArrayDeque<>();
-        List<LifeCommissioner> list= lifeCommissonerMapper.selectByBuilding(buildingMapper.selectId(name));
-        for(LifeCommissioner lifeCommissioner :list){
-            dmtrname.add(lifeCommissioner.getName());
-        }
-        String[][][] dmtr=new String[20][5][2];
-        for(int i=0;i<20;i++){
-            for(int j=0;j<5;j++){
-                dmtr[i][j][0]=dmtrname.poll();
-                dmtrname.add(dmtr[i][j][0]);
-                dmtr[i][j][1]=dmtrname.poll();
-                dmtrname.add(dmtr[i][j][1]);
-            }
-        }
-        return dmtr;
-    }
-
-    private String[][] generateDmtr(String name) {
-        Queue<String> dmtrname=new ArrayDeque<>();
-        List<LifeCommissioner> list= lifeCommissonerMapper.selectByBuilding(buildingMapper.selectId(name));
-        for(LifeCommissioner lifeCommissioner :list){
-            dmtrname.add(lifeCommissioner.getName());
-        }
-        String[][] dmtr=new String[20][5];
-        for(int i=0;i<20;i++){
-            for(int j=0;j<5;j++){
-                dmtr[i][j]=dmtrname.poll();
-                dmtrname.add(dmtr[i][j]);
-            }
-        }
-        return dmtr;
-    }
 
 
     public void initDmtr(){
@@ -257,33 +171,17 @@ class XuefuApplicationTests {
         }
     }
 
-    @Test
-    public void selectDmtr(){
-        List<Dmtr> sh14=dmtrMapper.selectByBuilding(buildingMapper.selectId("升华28栋北"));
-        HashSet<Integer> set14=new HashSet<>();
-        for(Dmtr dmtr:sh14){
-            set14.add(dmtr.getNum());
-        }
-        int []arr =new int[set14.size()];
-        int r=0;
-        for(int num:set14){
-            arr[r++]=num;
-        }
-        Arrays.sort(arr);
-        for(int num:arr){
-            System.out.print(num+"、");
-        }
-    }
 
-    @Test
-    public void deletes(){
-        System.out.println(lifeCommissonerMapper.selectCount());
-        Scanner scanner=new Scanner(System.in);
-        while (true){
-            String name=scanner.nextLine();
-            lifeCommissonerMapper.delete(name);
-        }
-    }
+
+//    @Test
+//    public void deletes(){
+//        System.out.println(lifeCommissonerMapper.selectCount());
+//        Scanner scanner=new Scanner(System.in);
+//        while (true){
+//            String name=scanner.nextLine();
+//            lifeCommissonerMapper.delete(name);
+//        }
+//    }
 
     @Test
     public void countNoCheck(){
@@ -336,72 +234,7 @@ class XuefuApplicationTests {
         }
 
 }
-    @Test
-    public void countDmtr(){
 
-//        HashSet<Integer> set=new HashSet<>();
-//        List<Integer> list1= dmtrMapper.selectByBuildingAndMajor(majorMapper.selectId("软工"), buildingMapper.selectId("铁道新1舍"));
-//        List<Integer> list2= dmtrMapper.selectByBuildingAndMajor(majorMapper.selectId("软工"), buildingMapper.selectId("铁道2舍"));
-//        for(int cur:list1) set.add(cur);
-//        for(int cur:list2) set.add(cur);
-//        System.out.println(set.size());
-
-//        countDmtrSigal("升华14栋");
-//        countDmtrSigal("升华28栋北");
-//        countDmtrSigal("升华27栋");
-//        countDmtrSigal("升华29栋");
-        countDmtrSigal("铁道2舍");
-//        countDmtrSigal("铁道11舍");
-//        countDmtrSigal("铁道新2舍");
-//        countDmtrSigal("铁道新1舍");
-//        List<Integer> list3= dmtrMapper.selectByBuildingAndMajor(majorMapper.selectId("物联网"), buildingMapper.selectId("升华14栋"));
-//        for(int cur:list3) set.add(cur);
-//        System.out.println(set.size());
-    }
-
-    public void countDmtrSigal(String dmtr){
-        System.out.println("记录"+dmtr);
-            Scanner scanner=new Scanner(System.in);
-            String str=scanner.nextLine();
-            List<Integer> listNum=new LinkedList<>();
-            int num=0;
-            for(int i=0;i<str.length();i++){
-                char c=str.charAt(i);
-                if(c<='9'&&c>='0') {
-                    num=num*10+(c-'0');
-                }
-                else {
-                    if(num!=0)
-                    listNum.add(num);
-                    num=0;
-                }
-            }
-            if(num!=0)
-            listNum.add(num);
-            HashMap<String,List<Integer>> map=new HashMap<>();
-            for(int cur:listNum){
-                List<Integer> list=dmtrMapper.selectByBuildingAndNum(buildingMapper.selectId(dmtr),cur);
-                if(list!=null&&list.size()>0) {
-                    String major= majorMapper.selectName(list.get(0));
-                    if(!map.containsKey(major)){
-                        map.put(major,new LinkedList<>());
-                    }
-                    map.get(major).add(cur);
-                }
-            }
-            for(Map.Entry<String,List<Integer>> curMap:map.entrySet()){
-                System.out.print(curMap.getKey());
-                List<Integer> numList=curMap.getValue();
-                System.out.print(numList.get(0));
-                numList.remove(0);
-                for(int cur:numList){
-                    System.out.print("、"+cur);
-                }
-                System.out.println();
-            }
-
-        System.out.println("记录结束");
-    }
 
     @Test
     public void devideNum(){
@@ -410,6 +243,16 @@ class XuefuApplicationTests {
         while (true){
             int a=scanner.nextInt(),b=scanner.nextInt();
             System.out.println((float) a/b);
+        }
+    }
+
+    @Test
+    public void ttt(){
+        Scanner scanner=new Scanner(System.in);
+        while (true){
+            String str=scanner.nextLine();
+            if("over".equals(str)) break;
+            lifeCommissonerMapper.setCnt(lifeCommissonerMapper.selectByName(str).getId(),lifeCommissonerMapper.selectCount(str)+1,LocalDateTime.now());
         }
     }
 }
