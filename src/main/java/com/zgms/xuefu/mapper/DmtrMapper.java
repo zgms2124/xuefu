@@ -35,4 +35,7 @@ public interface DmtrMapper {
 
     @Update("update tb_dmtr set year=#{year} where id=#{id}")
     public void addYear(@Param("id")int id,@Param("year")int year);
+
+    @Select("select num from tb_dmtr where major=#{major} and year =#{year}")
+    public List<Integer> countByMajorAndYear(@Param("major") int major,@Param("year") int year);
 }

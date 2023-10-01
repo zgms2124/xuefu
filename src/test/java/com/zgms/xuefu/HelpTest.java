@@ -1,39 +1,21 @@
 package com.zgms.xuefu;
 
-import com.alibaba.excel.EasyExcel;
 import com.zgms.xuefu.easyexcel.consts.Consts;
-import com.zgms.xuefu.pojo.LifeCommissioner;
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  * 学习JAVA
  *
  * @项目名称：
  * @子庚木上
- * @Date：2023/9/18 - 09 - 18 - 23:20
+ * @Date：2023/9/25 - 09 - 25 - 21:28
  * @version： 1.0
  * @功能：
  */
-@SpringBootTest
-public class EasyTest {
-    @Test
-    public void addLifeCms(){
-//        System.out.println(getCurrentWeek());
-        List<Integer> list=new ArrayList<>();
-        for(int i=0;i<20;i++){
-            list.add(i);
-        }
-        System.out.println("xc"+"我爱你"+list);
-    }
+public class HelpTest {
     public static int getCurrentWeek() {
         try {
             // 创建日期格式化器

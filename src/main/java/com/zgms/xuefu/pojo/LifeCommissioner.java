@@ -23,6 +23,25 @@ public class LifeCommissioner {
     private LocalDateTime updateTime;
     private String name;
     private int building;
+    private int year;
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    public LifeCommissioner(LocalDateTime createTime, LocalDateTime updateTime, String name, int building, Integer cnt, int year) {
+        this.id = id;
+        this.cnt = cnt;
+        this.createTime = createTime;
+        this.updateTime = updateTime;
+        this.name = name;
+        this.building = building;
+        this.year = year;
+    }
 
     public LifeCommissioner(LocalDateTime createTime, LocalDateTime updateTime, String name, int building, int cnt) {
         this.createTime = createTime;

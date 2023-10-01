@@ -104,7 +104,7 @@ class XuefuApplicationTests {
 
 
 
-
+    @Test
     public void initDmtr(){
         Scanner scanner=new Scanner(System.in);
         while(true){
@@ -142,24 +142,7 @@ class XuefuApplicationTests {
         }
     }
 
-    @Test
-    void insertSTudent(){
-        initStudent("铁道新2舍");
-    }
 
-    private void initStudent(String building) {
-        System.out.println("当前录入同学楼栋："+building);
-        Scanner scanner=new Scanner(System.in);
-        while(true){
-            String name=scanner.nextLine();
-            if("over".equals(name)){
-                break;
-            }
-            LifeCommissioner lifeCommissioner =new LifeCommissioner(LocalDateTime.now(), LocalDateTime.now(), name,buildingMapper.selectId(building),0);
-            lifeCommissonerMapper.insert(lifeCommissioner);
-            System.out.println("录入成功！");
-        }
-    }
 
     @Test
     public void insertTDDmtr(){
@@ -167,7 +150,7 @@ class XuefuApplicationTests {
         while(true){
             int num=scanner.nextInt();
             if(num==0) break;
-            dmtrMapper.insert(new Dmtr(LocalDateTime.now(),LocalDateTime.now(),num,buildingMapper.selectId("铁道新1舍"),majorMapper.selectId("通信")));
+            dmtrMapper.insert(new Dmtr(LocalDateTime.now(),LocalDateTime.now(),num,buildingMapper.selectId("铁道2舍"),majorMapper.selectId("通信")));
         }
     }
 
@@ -236,15 +219,8 @@ class XuefuApplicationTests {
 }
 
 
-    @Test
-    public void devideNum(){
 
-        Scanner scanner=new Scanner(System.in);
-        while (true){
-            int a=scanner.nextInt(),b=scanner.nextInt();
-            System.out.println((float) a/b);
-        }
-    }
+
 
     @Test
     public void ttt(){

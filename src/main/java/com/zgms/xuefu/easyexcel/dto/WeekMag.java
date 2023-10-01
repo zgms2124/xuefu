@@ -21,7 +21,7 @@ public class WeekMag {
     @ExcelProperty("查灯人员")
     private String name;
 
-    @ColumnWidth(100)
+    @ColumnWidth(114)
     @ExcelProperty("宿舍")
     private String dmtr;
 

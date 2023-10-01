@@ -3,6 +3,7 @@ package com.zgms.xuefu.mapper;
 import com.zgms.xuefu.pojo.Building;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;
+import org.apache.ibatis.annotations.Select;
 
 /**
  * 学习JAVA
@@ -20,4 +21,7 @@ public interface BuildingMapper {
     public void insert(Building building);
 
     public int selectId(String name);
+
+    @Select("select year from tb_building where name=#{name}")
+    public int selectYearByBuilding(String name);
 }

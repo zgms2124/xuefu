@@ -4,6 +4,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -40,32 +41,42 @@ public class Person {
             System.out.println();
             System.out.println(formattedDate);
         }
-        SH();
-        TD();
+        SH(new String[][]{});
+        TD(new String[][]{});
     }
-    public static void SH(){
-        Scanner sc=new Scanner(System.in);
-        String [][]str1=new String[5][4];
+    public static List<String> SH(String [][] str1){
+//        Scanner sc=new Scanner(System.in);
+//        String [][]str1=new String[5][5];
+//        for(int i=0;i<5;i++){
+//            for(int j=0;j<5;j++){
+//                str1[i][j]=sc.next();
+//            }
+//        }
+        List<String> list=new ArrayList<>();
+//        System.out.println("信安：");
         for(int i=0;i<5;i++){
-            for(int j=0;j<4;j++){
-                str1[i][j]=sc.next();
-            }
-        }
-        System.out.println("信安：");
-        for(int i=0;i<5;i++){
-            System.out.println(str1[i][0]+"、"+str1[i][2]);
-            System.out.println(str1[i][1]+"、"+str1[i][3]);
+//            System.out.println(str1[i][0]+"、"+str1[i][2]);
+//            System.out.println(str1[i][1]+"、"+str1[i][3]);
+
+            list.add(str1[i][0]+"、"+str1[i][2]);
+            list.add(str1[i][1]+"、"+str1[i][3]);
 
         }
-        System.out.println("计科：");
+//        System.out.println("计科：");
         for(int i=0;i<5;i++){
-            System.out.println(str1[i][0]+"、"+str1[i][2]);
-            System.out.println(str1[i][1]+"、"+str1[i][3]);
+//            System.out.println(str1[i][0]+"、"+str1[i][2]);
+//            System.out.println(str1[i][1]+"、"+str1[i][3]);
+
+            list.add(str1[i][0]+"、"+str1[i][2]);
+            list.add(str1[i][1]+"、"+str1[i][3]);
         }
-        System.out.println("大数据：");
+//        System.out.println("大数据：");
         for(int i=0;i<5;i++){
-            System.out.println(str1[i][0]+"、"+str1[i][2]);
-            System.out.println(str1[i][1]+"、"+str1[i][3]);
+//            System.out.println(str1[i][0]+"、"+str1[i][2]);
+//            System.out.println(str1[i][1]+"、"+str1[i][3]);
+
+            list.add(str1[i][0]+"、"+str1[i][2]);
+            list.add(str1[i][1]+"、"+str1[i][3]);
         }
 //        System.out.println("物联网：");
 //        for(int i=0;i<5;i++){
@@ -73,23 +84,38 @@ public class Person {
 //            System.out.println();
 //        }
 //        System.out.println("23级：");
-//        for(int i=0;i<5;i++){
-//            System.out.println(str1[i][1]+"，"+str1[i][2]+"，"+str1[i][4]);
-//            System.out.println(str1[i][1]+"，"+str1[i][2]+"，"+str1[i][4]);
-//        }
+        for(int i=0;i<5;i++){
+//            System.out.println(str1[i][1]+"、"+str1[i][4]);
+//            System.out.println(str1[i][1]+"、"+str1[i][4]);
+            list.add(str1[i][1]+"、"+str1[i][4]);
+            list.add(str1[i][1]+"、"+str1[i][4]);
+        }
+//        System.out.println();
+
+//        System.out.println(list.size());
+        return list;
     }
-    public static void TD(){
-        Scanner sc=new Scanner(System.in);
-        String [][]str1=new String[5][4];
+    public static List<String> TD(String str1[][]){
+//        Scanner sc=new Scanner(System.in);
+//        String [][]str1=new String[5][4];
+//        for(int i=0;i<5;i++){
+//            for(int j=0;j<4;j++){
+//                str1[i][j]=sc.next();
+//            }
+//        }
+        List<String> list=new ArrayList<>();
         for(int i=0;i<5;i++){
-            for(int j=0;j<4;j++){
-                str1[i][j]=sc.next();
-            }
+//            System.out.print(str1[i][1]+"、"+str1[i][2]+"\n"+str1[i][0]+"、"+str1[i][3]+"\n");
+            list.add(str1[i][1]+"、"+str1[i][2]);
+            list.add(str1[i][0]+"、"+str1[i][3]);
         }
-        System.out.println("铁道：");
         for(int i=0;i<5;i++){
-            System.out.print(str1[i][1]+"、"+str1[i][2]+"\n"+str1[i][0]+"、"+str1[i][3]+"\n");
+//            System.out.print(str1[i][1]+"、"+str1[i][2]+"\n"+str1[i][0]+"、"+str1[i][3]+"\n");
+            list.add(str1[i][1]+"、"+str1[i][2]);
+            list.add(str1[i][0]+"、"+str1[i][3]);
         }
+//        System.out.println(list.size());
+        return list;
     }
     public List<List<Integer>> reconstructMatrix(int upper, int lower, int[] colsum) {
         int n = colsum.length;

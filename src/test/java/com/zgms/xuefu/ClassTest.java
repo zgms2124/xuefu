@@ -38,11 +38,22 @@ public class ClassTest {
     }
 
     @Test
-    public void collectClass() {
+    public void collectClass(){
+        for(int i=2301;i<=2306;i++){
+            String fileName = "E:\\qq文件\\2124305427\\download\\软工"+i+".xlsx";
+            System.out.println("当前读取的是："+fileName);
+            collectClass(fileName);
+//            System.out.println("计科"+i);
+
+        }
+
+    }
+
+    public void collectClass(String fileName) {
         List<Klass> list = new ArrayList<>();
         String[][] classIfo = new String[15][7];
         int i = 0;
-        String fileName = "C:\\Users\\maker\\Desktop\\文件\\日常文件\\学服2023\\查课\\课程表.xlsx";
+//        String fileName="E:\\qq文件\\2124305427\\download\\23级计通课表\\2301.xsxl"
         EasyExcel.read(fileName, Klass.class, new AnalysisEventListener() {
             @Override
             public void invoke(Object o, AnalysisContext analysisContext) {
@@ -67,7 +78,7 @@ public class ClassTest {
         }
 
         for(int j=0;j<5;j++){
-            String part2=""+(j+1)+(j+2);
+            String part2=""+(j*2+1)+(j*2+2);
             for(int k=1;k<7;k++){
                 String part1="周"+daySelect(k);
                 String part3=classIfo[j*3][k];

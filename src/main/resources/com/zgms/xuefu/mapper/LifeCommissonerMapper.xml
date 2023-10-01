@@ -5,7 +5,7 @@
 <mapper namespace="com.zgms.xuefu.mapper.LifeCommissonerMapper">
 
     <insert id="insert">
-        insert ignore into tb_life_commissioner(create_time, update_time, name,building)
-        VALUES (#{createTime}, #{updateTime}, #{name},#{building})
+        insert ignore into tb_life_commissioner(create_time, update_time, name,building,cnt,year)
+        VALUES (#{createTime}, #{updateTime}, #{name},#{building},#{cnt},#{year})
     </insert>
 </mapper>
