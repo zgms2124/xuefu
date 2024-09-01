@@ -8,6 +8,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
+import static com.zgms.xuefu.easyexcel.consts.Consts.WEEKDAYNUM;
+
 /**
  * 学习JAVA
  *
@@ -46,49 +48,49 @@ public class Person {
     }
     public static List<String> SH(String [][] str1){
 //        Scanner sc=new Scanner(System.in);
-//        String [][]str1=new String[5][5];
-//        for(int i=0;i<5;i++){
-//            for(int j=0;j<5;j++){
+//        String [][]str1=new String[WEEKDAYNUM][WEEKDAYNUM];
+//        for(int i=0;i<WEEKDAYNUM;i++){
+//            for(int j=0;j<WEEKDAYNUM;j++){
 //                str1[i][j]=sc.next();
 //            }
 //        }
         List<String> list=new ArrayList<>();
 //        System.out.println("信安：");
-        for(int i=0;i<5;i++){
-//            System.out.println(str1[i][0]+"、"+str1[i][2]);
-//            System.out.println(str1[i][1]+"、"+str1[i][3]);
+        for(int i=0;i<WEEKDAYNUM;i++){
+//            System.out.println(str1[i][0]+"\n"+str1[i][2]);
+//            System.out.println(str1[i][1]+"\n"+str1[i][3]);
 
-            list.add(str1[i][0]+"、"+str1[i][2]);
-            list.add(str1[i][1]+"、"+str1[i][3]);
+            list.add(str1[i][0]+"\n"+str1[i][2]);
+            list.add(str1[i][1]+"\n"+str1[i][3]);
 
         }
 //        System.out.println("计科：");
-        for(int i=0;i<5;i++){
-//            System.out.println(str1[i][0]+"、"+str1[i][2]);
-//            System.out.println(str1[i][1]+"、"+str1[i][3]);
+        for(int i=0;i<WEEKDAYNUM;i++){
+//            System.out.println(str1[i][0]+"\n"+str1[i][2]);
+//            System.out.println(str1[i][1]+"\n"+str1[i][3]);
 
-            list.add(str1[i][0]+"、"+str1[i][2]);
-            list.add(str1[i][1]+"、"+str1[i][3]);
+            list.add(str1[i][0]+"\n"+str1[i][2]);
+            list.add(str1[i][1]+"\n"+str1[i][3]);
         }
 //        System.out.println("大数据：");
-        for(int i=0;i<5;i++){
-//            System.out.println(str1[i][0]+"、"+str1[i][2]);
-//            System.out.println(str1[i][1]+"、"+str1[i][3]);
+        for(int i=0;i<WEEKDAYNUM;i++){
+//            System.out.println(str1[i][0]+"\n"+str1[i][2]);
+//            System.out.println(str1[i][1]+"\n"+str1[i][3]);
 
-            list.add(str1[i][0]+"、"+str1[i][2]);
-            list.add(str1[i][1]+"、"+str1[i][3]);
+            list.add(str1[i][0]+"\n"+str1[i][2]);
+            list.add(str1[i][1]+"\n"+str1[i][3]);
         }
 //        System.out.println("物联网：");
-//        for(int i=0;i<5;i++){
+//        for(int i=0;i<WEEKDAYNUM;i++){
 //            System.out.println(str1[i][2]+"，"+str1[i][3]);
 //            System.out.println();
 //        }
 //        System.out.println("23级：");
-        for(int i=0;i<5;i++){
-//            System.out.println(str1[i][1]+"、"+str1[i][4]);
-//            System.out.println(str1[i][1]+"、"+str1[i][4]);
-            list.add(str1[i][1]+"、"+str1[i][4]);
-            list.add(str1[i][1]+"、"+str1[i][4]);
+        for(int i=0;i<WEEKDAYNUM;i++){
+//            System.out.println(str1[i][1]+"\n"+str1[i][4]);
+//            System.out.println(str1[i][1]+"\n"+str1[i][4]);
+            list.add(str1[i][1]+"\n"+str1[i][4]);
+            list.add(str1[i][1]+"\n"+str1[i][4]);
         }
 //        System.out.println();
 
@@ -97,22 +99,22 @@ public class Person {
     }
     public static List<String> TD(String str1[][]){
 //        Scanner sc=new Scanner(System.in);
-//        String [][]str1=new String[5][4];
-//        for(int i=0;i<5;i++){
+//        String [][]str1=new String[WEEKDAYNUM][4];
+//        for(int i=0;i<WEEKDAYNUM;i++){
 //            for(int j=0;j<4;j++){
 //                str1[i][j]=sc.next();
 //            }
 //        }
         List<String> list=new ArrayList<>();
-        for(int i=0;i<5;i++){
-//            System.out.print(str1[i][1]+"、"+str1[i][2]+"\n"+str1[i][0]+"、"+str1[i][3]+"\n");
-            list.add(str1[i][1]+"、"+str1[i][2]);
-            list.add(str1[i][0]+"、"+str1[i][3]);
+        for(int i=0;i<WEEKDAYNUM;i++){
+//            System.out.print(str1[i][1]+"\n"+str1[i][2]+"\n"+str1[i][0]+"\n"+str1[i][3]+"\n");
+            list.add(str1[i][1]+"\n"+str1[i][2]);
+            list.add(str1[i][0]+"\n"+str1[i][3]);
         }
-        for(int i=0;i<5;i++){
-//            System.out.print(str1[i][1]+"、"+str1[i][2]+"\n"+str1[i][0]+"、"+str1[i][3]+"\n");
-            list.add(str1[i][1]+"、"+str1[i][2]);
-            list.add(str1[i][0]+"、"+str1[i][3]);
+        for(int i=0;i<WEEKDAYNUM;i++){
+//            System.out.print(str1[i][1]+"\n"+str1[i][2]+"\n"+str1[i][0]+"\n"+str1[i][3]+"\n");
+            list.add(str1[i][1]+"\n"+str1[i][2]);
+            list.add(str1[i][0]+"\n"+str1[i][3]);
         }
 //        System.out.println(list.size());
         return list;

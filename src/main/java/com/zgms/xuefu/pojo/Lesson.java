@@ -26,5 +26,6 @@ public class Lesson {
     public Lesson(String name, int klass) {
         this.name = name;
         this.klass = klass;
+
     }
 }

@@ -25,14 +25,19 @@ import java.util.List;
  */
 @SpringBootTest
 public class EasyTest {
+
+    //        List<Integer> list=new ArrayList<>();
+//        for(int i=0;i<20;i++){
+//            list.add(i);
+//        }
+//        System.out.println("xc"+"我爱你"+list);
     @Test
     public void addLifeCms(){
-//        System.out.println(getCurrentWeek());
-        List<Integer> list=new ArrayList<>();
-        for(int i=0;i<20;i++){
-            list.add(i);
-        }
-        System.out.println("xc"+"我爱你"+list);
+        System.out.println(accumulateEntropy(0.02,1));
+    }
+
+    public double  accumulateEntropy(double x,double p){
+        return (-x*Math.log(x)/Math.log(2)-(1-x)*Math.log((1-x))/Math.log(2))*p;
     }
     public static int getCurrentWeek() {
         try {

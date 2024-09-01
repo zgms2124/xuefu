@@ -38,4 +38,7 @@ public interface DmtrMapper {
 
     @Select("select num from tb_dmtr where major=#{major} and year =#{year}")
     public List<Integer> countByMajorAndYear(@Param("major") int major,@Param("year") int year);
+
+    @Delete("delete from tb_dmtr where major =#{major}")
+    public void deleteByMajor(int major);
 }

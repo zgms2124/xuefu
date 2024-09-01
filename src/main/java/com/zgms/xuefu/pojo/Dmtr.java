@@ -25,6 +25,7 @@ public class Dmtr {
     private int num;
     private int building;
     private int major;
+    private int cnt;
 
     public Dmtr(LocalDateTime createTime, LocalDateTime updateTime, int num, int building, int major) {
         this.createTime = createTime;
@@ -32,5 +33,6 @@ public class Dmtr {
         this.num = num;
         this.building = building;
         this.major = major;
+        this.cnt=0;
     }
 }

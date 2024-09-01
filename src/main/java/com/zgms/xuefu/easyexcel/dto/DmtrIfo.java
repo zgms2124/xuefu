@@ -12,28 +12,47 @@ import com.alibaba.excel.annotation.ExcelProperty;
  * @功能：
  */
 public class DmtrIfo {
+
+    @ExcelProperty(index = 0)
+    private String dataIfo;
+    @ExcelProperty(index = 1,value = "查灯人员")
+    private String studentIfo;
     @ExcelProperty(index = 2,value = "宿舍信息")
-    private String ifo;
+    private String lightIfo;
 
     public DmtrIfo() {
-    }
-
-    public String getIfo() {
-        return ifo;
-    }
-
-    public void setIfo(String ifo) {
-        this.ifo = ifo;
-    }
-
-    public DmtrIfo(String ifo) {
-        this.ifo = ifo;
     }
 
     @Override
     public String toString() {
         return "DmtrIfo{" +
-                       "ifo='" + ifo + '\'' +
-                       '}';
+                "dataIfo='" + dataIfo + '\'' +
+                ", studentIfo='" + studentIfo + '\'' +
+                ", lightIfo='" + lightIfo + '\'' +
+                '}';
+    }
+
+    public String getDataIfo() {
+        return dataIfo;
+    }
+
+    public void setDataIfo(String dataIfo) {
+        this.dataIfo = dataIfo;
+    }
+
+    public String getStudentIfo() {
+        return studentIfo;
+    }
+
+    public void setStudentIfo(String studentIfo) {
+        this.studentIfo = studentIfo;
+    }
+
+    public String getLightIfo() {
+        return lightIfo;
+    }
+
+    public void setLightIfo(String lightIfo) {
+        this.lightIfo = lightIfo;
     }
 }

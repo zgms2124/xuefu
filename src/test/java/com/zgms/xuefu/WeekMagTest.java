@@ -3,7 +3,7 @@ package com.zgms.xuefu;
 import com.alibaba.excel.EasyExcel;
 import com.zgms.xuefu.easyexcel.dto.WeekMag;
 import com.zgms.xuefu.mapper.BuildingMapper;
-import com.zgms.xuefu.mapper.LifeCommissonerMapper;
+import com.zgms.xuefu.mapper.LifeCommissionerMapper;
 import com.zgms.xuefu.pojo.LifeCommissioner;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +11,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDateTime;
 import java.util.*;
+
+import static com.zgms.xuefu.easyexcel.consts.Consts.WEEKDAYNUM;
 
 /**
  * 学习JAVA
@@ -25,7 +27,7 @@ import java.util.*;
 public class WeekMagTest {
 
     @Autowired
-    LifeCommissonerMapper lifeCommissonerMapper;
+    LifeCommissionerMapper lifeCommissonerMapper;
 
     @Autowired
     BuildingMapper buildingMapper;
@@ -34,7 +36,7 @@ public class WeekMagTest {
     public void initSetCnt(){
         List<LifeCommissioner> list= lifeCommissonerMapper.selectAll();
         for(LifeCommissioner lifeCommissioner :list){
-            lifeCommissonerMapper.setCnt(lifeCommissioner.getId(),0,LocalDateTime.now());
+            lifeCommissonerMapper.setUnCnt(lifeCommissioner.getId(),0,LocalDateTime.now());
         }
     }
 
@@ -44,7 +46,7 @@ public class WeekMagTest {
         while (true){
             String name=scanner.nextLine();
             LifeCommissioner lifeCommissioner = lifeCommissonerMapper.selectByName(name);
-            lifeCommissonerMapper.setCnt(lifeCommissioner.getId(), lifeCommissioner.getCnt()+1, LocalDateTime.now());
+            lifeCommissonerMapper.setUnCnt(lifeCommissioner.getId(), lifeCommissioner.getCnt()+1, LocalDateTime.now());
         }
     }
 
@@ -72,10 +74,12 @@ public class WeekMagTest {
         weeklist.add(generateSingal("升华27栋",sh27,"宿舍信息：410，412-419，421-437",week));
         weeklist.add(generateSingal("升华29栋",sh29,"宿舍信息：108，112-117，201-213，506-510",week));
         weeklist.add(generateSingal("升华39栋",sh39,"宿舍信息：315-328，402-428，502-517",week));
-        weeklist.add(generateSingal("铁道2舍",td2,"宿舍信息：110，114，126，130，319，326，328-330，333，401-410，413-415，419，421-433，511-521，523，529",week));
-        weeklist.add(generateSingal("铁道十一舍",td11,"宿舍信息：401-410，412，413，501-510，512-519，601-610，612-619",week));
-        weeklist.add(generateSingal("铁道新二舍",tdnew2,"宿舍信息：101-108，124-128，224",week));
-        weeklist.add(generateSingal("铁道新一舍",tdnew1,"宿舍信息：203-214",week));
+//        weeklist.add(generateSingal("铁道2舍",td2,"宿舍信息：110，114，126，130，319，326，328-330，333，401-410，413-415，419，421-433，511-521，523，529",week));
+        weeklist.add(generateSingal("铁道2舍",td2,"宿舍信息：130，402-410，413-415，419，421-433，511-521，523，529",week));
+
+        weeklist.add(generateSingal("铁道十一舍",td11,"宿舍信息：401-410，412-413，501-519，601-607",week));
+        weeklist.add(generateSingal("铁道新二舍",tdnew2,"宿舍信息：101-108，124，224",week));
+        weeklist.add(generateSingal("铁道新一舍",tdnew1,"宿舍信息：207-214",week));
 
 
         String filename="C:\\Users\\maker\\Desktop\\文件\\日常文件\\学服2023\\查灯安排\\第"+(week+1)+"周查灯情况汇总表.xlsx";
@@ -99,9 +103,9 @@ public class WeekMagTest {
         for(LifeCommissioner lifeCommissioner :list){
             dmtrname.add(lifeCommissioner.getName());
         }
-        String[][] dmtr=new String[20][5];
+        String[][] dmtr=new String[20][WEEKDAYNUM];
         for(int i=0;i<20;i++){
-            for(int j=0;j<5;j++){
+            for(int j=0;j<WEEKDAYNUM;j++){
                 String str1=dmtrname.poll();
                 dmtrname.add(str1);
 
@@ -139,11 +143,14 @@ public class WeekMagTest {
         weekMags.add(new WeekMag(" "," "," "));
         weekMags.add(new WeekMag(" "," "," "));
         weekMags.add(new WeekMag(" ",building,ifo));
-        weekMags.add(new WeekMag("周日",lifeCms[week][0]," "));
-        weekMags.add(new WeekMag("周一",lifeCms[week][1]," "));
-        weekMags.add(new WeekMag("周二",lifeCms[week][2]," "));
-        weekMags.add(new WeekMag("周三",lifeCms[week][3]," "));
-        weekMags.add(new WeekMag("周四",lifeCms[week][4]," "));
+        int r=0;
+//        weekMags.add(new WeekMag("周五",lifeCms[week][r++]," "));
+//        weekMags.add(new WeekMag("周六",lifeCms[week][r++]," "));
+        weekMags.add(new WeekMag("周日",lifeCms[week][r++]," "));
+        weekMags.add(new WeekMag("周一",lifeCms[week][r++]," "));
+        weekMags.add(new WeekMag("周二",lifeCms[week][r++]," "));
+        weekMags.add(new WeekMag("周三",lifeCms[week][r++]," "));
+        weekMags.add(new WeekMag("周四",lifeCms[week][r]," "));
         return weekMags;
     }
 

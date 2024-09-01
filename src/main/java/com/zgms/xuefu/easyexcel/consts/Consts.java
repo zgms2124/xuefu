@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
  * @功能：
  */
 public final class Consts {
-    public static final String FIRST_WEEK_START_DATE = "2023-09-03";
+    public static final String FIRST_WEEK_START_DATE = "2024-02-26";
     public static String 信安21="许宁";
     public static String 信安22="刘烁烁";
     public static String 计算机21="迟旭";
@@ -24,8 +24,10 @@ public final class Consts {
     public static String 通信21="宋晓萌";
     public static String 通信22="何星霖";
 
-    public static String 计通23="吾勒盼·巴特尔、姜雨辰";
+    public static String 计通23="吾勒盼·巴特尔\n姜雨辰";
     public static String 软工类23="袁熠";
+
+    public static int WEEKDAYNUM=5;
 
 
     public static Object getConstantValue(String constantName) {

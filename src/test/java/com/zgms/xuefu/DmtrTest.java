@@ -7,10 +7,11 @@ import com.alibaba.excel.event.AnalysisEventListener;
 import com.zgms.xuefu.easyexcel.consts.Consts;
 import com.zgms.xuefu.easyexcel.dto.DmtrIfo;
 import com.zgms.xuefu.easyexcel.dto.FinalFileIfoNEW;
+import com.zgms.xuefu.easyexcel.dto.SingalWeekLifeCommissioner;
 import com.zgms.xuefu.easyexcel.dto.UnDownLight;
 import com.zgms.xuefu.mapper.BuildingMapper;
 import com.zgms.xuefu.mapper.DmtrMapper;
-import com.zgms.xuefu.mapper.LifeCommissonerMapper;
+import com.zgms.xuefu.mapper.LifeCommissionerMapper;
 import com.zgms.xuefu.mapper.MajorMapper;
 import com.zgms.xuefu.pojo.Dmtr;
 import com.zgms.xuefu.pojo.LifeCommissioner;
@@ -23,6 +24,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+
+import static com.zgms.xuefu.easyexcel.consts.Consts.WEEKDAYNUM;
 
 /**
  * 学习JAVA
@@ -46,7 +49,7 @@ public class DmtrTest {
     private DmtrMapper dmtrMapper;
 
     @Autowired
-    private LifeCommissonerMapper lifeCommissonerMapper;
+    private LifeCommissionerMapper lifeCommissonerMapper;
 
     @Test
     public void addYear() {
@@ -64,12 +67,12 @@ public class DmtrTest {
 //        initDmtrByNum("信安","升华14栋");
 //
 //        initDmtrByNum("大数据","升华27栋");
-        initDmtrByNum("计算机", "升华27栋");
-        initDmtrByNum("信安", "升华27栋");
+//        initDmtrByNum("计算机", "升华27栋");
+//        initDmtrByNum("信安", "升华27栋");
 
-        initDmtrByNum("通信", "铁道11舍");
-        initDmtrByNum("软工", "铁道11舍");
-        initDmtrByNum("通信", "铁道新2舍");
+//        initDmtrByNum("通信", "铁道11舍");
+//        initDmtrByNum("软工", "铁道11舍");
+//        initDmtrByNum("通信", "铁道新2舍");
         initDmtrByNum("软工", "铁道新2舍");
 
 
@@ -118,7 +121,7 @@ public class DmtrTest {
         selectDmtrSingal("铁道新1舍");
     }
 
-    @Test
+//    @Test
     public void selectDmtrSingal(String str) {
         List<Dmtr> sh14 = dmtrMapper.selectByBuilding(buildingMapper.selectId(str));
         HashSet<Integer> set14 = new HashSet<>();
@@ -151,7 +154,6 @@ public class DmtrTest {
         }
         System.out.println();
     }
-
     public ArrayList countDmtr(ArrayList<String> dmtrList) {
 
 //        HashSet<Integer> set=new HashSet<>();
@@ -161,19 +163,20 @@ public class DmtrTest {
 //        for(int cur:list2) set.add(cur);
 //        System.out.println(set.size());
         ArrayList<String> arrayList = new ArrayList<>();
-        arrayList.addAll(countDmtrSigal("升华14栋", dmtrList, 1));
-        arrayList.addAll(countDmtrSigal("升华28栋北", dmtrList, 7));
-        arrayList.addAll(countDmtrSigal("升华27栋", dmtrList, 13));
-        arrayList.addAll(countDmtrSigal("升华29栋", dmtrList, 19));
-        arrayList.addAll(countDmtrSigal("升华39栋", dmtrList, 25));
-        arrayList.addAll(countDmtrSigal("铁道2舍", dmtrList, 31));
-        arrayList.addAll(countDmtrSigal("铁道11舍", dmtrList, 37));
-        arrayList.addAll(countDmtrSigal("铁道新2舍", dmtrList, 43));
-        arrayList.addAll(countDmtrSigal("铁道新1舍", dmtrList, 49));
+        int i=1;
+        arrayList.addAll(countDmtrSigal("升华14栋", dmtrList, 0*WEEKDAYNUM+i));
+        arrayList.addAll(countDmtrSigal("升华28栋北", dmtrList, i++*WEEKDAYNUM+i));
+        arrayList.addAll(countDmtrSigal("升华27栋", dmtrList, i++*WEEKDAYNUM+i));
+        arrayList.addAll(countDmtrSigal("升华29栋", dmtrList, i++*WEEKDAYNUM+i));
+        arrayList.addAll(countDmtrSigal("升华39栋", dmtrList, i++*WEEKDAYNUM+i));
+        arrayList.addAll(countDmtrSigal("铁道2舍", dmtrList, i++*WEEKDAYNUM+i));
+        arrayList.addAll(countDmtrSigal("铁道11舍", dmtrList, i++*WEEKDAYNUM+i));
+        arrayList.addAll(countDmtrSigal("铁道新2舍", dmtrList, i++*WEEKDAYNUM+i));
+        arrayList.addAll(countDmtrSigal("铁道新1舍", dmtrList, i++*WEEKDAYNUM+i));
 //        List<Integer> list3= dmtrMapper.selectByBuildingAndMajor(majorMapper.selectId("物联网"), buildingMapper.selectId("升华14栋"));
 //        for(int cur:list3) set.add(cur);
 //        System.out.println(set.size());
-        return arrayList;
+        return arrayList;  
     }
 
     public ArrayList<String> countDmtrSigal(String building, ArrayList<String> arrayList, int begin) {
@@ -181,7 +184,7 @@ public class DmtrTest {
 //        System.out.println("输入“结束”,退出该宿舍的查询");
 //        Scanner scanner=new Scanner(System.in);
         ArrayList<String> ifo = new ArrayList<>();
-        for (int r = 0; r < 5; r++) {
+        for (int r = 0; r < WEEKDAYNUM; r++) {
             String str = arrayList.get(begin + r);
             if (str == null || "无".equals(str)) continue;
             if ("结束".equals(str)) break;
@@ -232,13 +235,41 @@ public class DmtrTest {
         return ifo;
     }
 
+
+    public void insertUnWrite(List<SingalWeekLifeCommissioner> studentList,int week) {
+        for (SingalWeekLifeCommissioner studentIfo : studentList) {
+
+            String str=studentIfo.getName();
+            String[] strings=str.split("、");
+            boolean flag=studentIfo.isFlag();
+            for(String student:strings){
+                LifeCommissioner lifeCommissioner=lifeCommissonerMapper.selectByName(student);
+                if(lifeCommissioner==null) continue;
+                if(flag) {
+
+                    String unwritedate=lifeCommissonerMapper.selectUnWriteDate(student);
+                    if(unwritedate==null){
+                        unwritedate="第"+week+"周"+studentIfo.getDate();
+                    }
+                    else{
+                        unwritedate+="，"+"第"+week+"周"+studentIfo.getDate();
+                    }
+                    lifeCommissonerMapper.setUnCnt(lifeCommissonerMapper.selectByName(student).getId(), lifeCommissonerMapper.selectUnCount(student) + 1, LocalDateTime.now());
+                    lifeCommissonerMapper.setUnWriteDate(lifeCommissonerMapper.selectByName(student).getId(),  unwritedate, LocalDateTime.now());
+
+                }
+                lifeCommissonerMapper.setCnt(lifeCommissioner.getId(), lifeCommissonerMapper.selectCount(student) + 1, LocalDateTime.now());
+            }
+        }
+
+    }
     @Test
     public void generateFinalExcel() {
         int week = HelpTest.getCurrentWeek();
-        week=4;
+//        week=11;
         ArrayList<DmtrIfo> unDownLightList = new ArrayList<>();
-        String fileName1 = "C:\\Users\\maker\\Desktop\\文件\\日常文件\\学服2023\\查灯情况\\反馈表\\第"+week+"周查灯情况汇总表.xlsx";
-        String fileName2 = "C:\\Users\\maker\\Desktop\\文件\\日常文件\\学服2023\\查灯情况\\汇总表\\第"+week+"周查灯情况.xlsx";
+        String fileName1 = "C:\\Users\\maker\\Desktop\\文件\\日常文件\\学服2023\\查灯情况2024\\反馈表\\第"+week+"周查灯情况汇总表.xlsx";
+        String fileName2 = "C:\\Users\\maker\\Desktop\\文件\\日常文件\\学服2023\\查灯情况2024\\汇总表\\第"+week+"周查灯情况.xlsx";
         EasyExcel.read(fileName1, DmtrIfo.class, new AnalysisEventListener() {
             @Override
             public void invoke(Object o, AnalysisContext analysisContext) {
@@ -273,21 +304,32 @@ public class DmtrTest {
 //            System.out.println(dmtrIfo.getIfo());
 //        }
         ArrayList<String> unDownLightStrList = new ArrayList<>();
+        ArrayList<SingalWeekLifeCommissioner> studentList=new ArrayList<>();
         int r=0;
+
+
         for (DmtrIfo dmtrIfo : unDownLightList) {
-            unDownLightStrList.add(dmtrIfo.getIfo());
+            unDownLightStrList.add(dmtrIfo.getLightIfo());
+            studentList.add(new SingalWeekLifeCommissioner(dmtrIfo.getDataIfo(),dmtrIfo.getStudentIfo(),dmtrIfo.getLightIfo()==null));
+            System.out.println(dmtrIfo.getLightIfo());
+            System.out.println(dmtrIfo.getStudentIfo());
         }
         ArrayList<String> dmtrIfo = countDmtr(unDownLightStrList);
+        insertUnWrite(studentList,week);
 
         LinkedList<UnDownLight>[][] unLight信安=getUndownLight("信安",dmtrIfo);
+        for(int j=0;j<WEEKDAYNUM;j++){
+            System.out.println(unLight信安[j][0]);
+            System.out.println("now");
+        }
         LinkedList<UnDownLight>[][] unLight大数据=getUndownLight("大数据",dmtrIfo);
         LinkedList<UnDownLight>[][] unLight计算机=getUndownLight("计算机",dmtrIfo);
         LinkedList<UnDownLight>[][] unLight23=getUndownLight("23",dmtrIfo);
-        LinkedList<UnDownLight>[][] unLight通信=getUndownLight("通信",dmtrIfo);
+//        LinkedList<UnDownLight>[][] unLight通信=getUndownLight("通信",dmtrIfo);
         LinkedList<UnDownLight>[][] unLight软工=getUndownLight("软工",dmtrIfo);
 //
-        List<String> lifeCommissionerList = Person.SH(generateStudent()[week]);
-        lifeCommissionerList.addAll(Person.TD(generateStudent()[20 + week]));
+        List<String> lifeCommissionerList = Person.SH(generateStudent()[week-1]);
+        lifeCommissionerList.addAll(Person.TD(generateStudent()[20 + week-1]));
 
 
         System.out.println(lifeCommissionerList.size());
@@ -295,7 +337,7 @@ public class DmtrTest {
         writeFinalList("大数据", list3, lifeCommissionerList,unLight大数据);
         writeFinalList("计算机", list3, lifeCommissionerList,unLight计算机);
         writeFinalList23(list3, lifeCommissionerList,unLight23);
-        writeFinalList("通信", list3, lifeCommissionerList,unLight通信);
+//        writeFinalList("通信", list3, lifeCommissionerList,unLight通信);
         writeFinalList("软工", list3, lifeCommissionerList,unLight软工);
 
         for (String str : lifeCommissionerList) {
@@ -304,7 +346,7 @@ public class DmtrTest {
         EasyExcel.write(fileName2, FinalFileIfoNEW.class).sheet("信息").doWrite(list3);
 
         System.out.println(dmtrIfo);
-        for(int i=0;i<5;i++){
+        for(int i=0;i<WEEKDAYNUM;i++){
             for(int j=0;j<2;j++){
                 System.out.println(unLight信安[i][j]);
             }
@@ -312,7 +354,10 @@ public class DmtrTest {
     }
 
     public LinkedList<UnDownLight>[][] getUndownLight(String major,ArrayList<String> arrayList){
-        LinkedList<UnDownLight>[][] unDownLights=new LinkedList[5][2];
+        for(String str:arrayList){
+            System.out.println(str);
+        }
+        LinkedList<UnDownLight>[][] unDownLights=new LinkedList[WEEKDAYNUM][2];
         for(String str:arrayList){
             String[] ifo=str.split("，");
             if(ifo[0].equals(major)){
@@ -364,18 +409,18 @@ public class DmtrTest {
         String[][] td11 = generateDmtr("铁道11舍", false);
         String[][] tdnew2 = generateDmtr("铁道新2舍", false);
         String[][] tdnew1 = generateDmtr("铁道新1舍", false);
-        String[][][] dmtr = new String[40][5][];
+        String[][][] dmtr = new String[40][WEEKDAYNUM][];
         for (int i = 0; i < 20; i++) {
-            for (int j = 0; j < 5; j++) {
+            for (int j = 0; j < WEEKDAYNUM; j++) {
                 dmtr[i][j] = (sh14[i][j] + "\t" + sh28[i][j] + "\t" + sh27[i][j] + "\t" + sh29[i][j] + "\t" + sh39[i][j]).split("\t");
                 dmtr[i + 20][j] = (td2[i][j] + "\t" + td11[i][j] + "\t" + tdnew2[i][j] + "\t" + tdnew1[i][j]).split("\t");
             }
         }
-        for (int i = 0; i < 5; i++) {
-            for (int j = 0; j < 5; j++) {
-                System.out.println(dmtr[3][i][j]);
-            }
-        }
+//        for (int i = 0; i < WEEKDAYNUM; i++) {
+//            for (int j = 0; j < WEEKDAYNUM; j++) {
+//                System.out.println(dmtr[3][i][j]);
+//            }
+//        }
         return dmtr;
     }
 
@@ -385,16 +430,16 @@ public class DmtrTest {
         for (LifeCommissioner lifeCommissioner : list) {
             dmtrname.add(lifeCommissioner.getName());
         }
-        String[][] dmtr = new String[20][5];
+        String[][] dmtr = new String[20][WEEKDAYNUM];
         for (int i = 0; i < 20; i++) {
-            for (int j = 0; j < 5; j++) {
+            for (int j = 0; j < WEEKDAYNUM; j++) {
                 String str1 = dmtrname.poll();
                 dmtrname.add(str1);
 
                 if (flag) {
                     String str2 = dmtrname.poll();
                     dmtrname.add(str2);
-                    dmtr[i][j] = str1 + "、" + str2;
+                    dmtr[i][j] = str1 + "\n" + str2;
                 } else {
                     dmtr[i][j] = str1;
                 }
@@ -404,7 +449,7 @@ public class DmtrTest {
     }
 
     public void writeFinalList(String major, List<FinalFileIfoNEW> fileList, List<String> lifeCommissionerList, LinkedList<UnDownLight>[][] undownLight) {
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < WEEKDAYNUM; i++) {
             for (int j = 0; j < 2; j++) {
                 String majorAndSection = major + "2" + (j+1);
                 String section=2021+j+"级";
@@ -431,9 +476,9 @@ public class DmtrTest {
                     }
                     undownLightStr=undownLightStr.substring(0,undownLightStr.length()-1);
                 }
-
+                String lifeComner=lifeCommissionerList.get(0);
                 fileList.add(new FinalFileIfoNEW(major, dayList.get(i), section, String.valueOf(dmtrCount), String.valueOf(dmtrCount-unLightCount), devideNum(dmtrCount-unLightCount, dmtrCount), undownLightStr, teacher
-                        , lifeCommissionerList.get(0)));
+                        , lifeComner));
                 if (!lifeCommissionerList.isEmpty()) {
                     lifeCommissionerList.remove(0);
                 }
@@ -444,7 +489,7 @@ public class DmtrTest {
 
     public void writeFinalList23(List<FinalFileIfoNEW> fileList, List<String> lifeCommissionerList, LinkedList<UnDownLight>[][] undownLight) {
 
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < WEEKDAYNUM; i++) {
             List<String> dayList = getNowWeek();
             List<Integer> dmtrList1 = dmtrMapper.countByMajorAndYear(majorMapper.selectId("软工类"), 2023);
             HashSet<Integer> dmtrSet1 = new HashSet<>(dmtrList1);
@@ -510,7 +555,7 @@ public class DmtrTest {
         String lastSundayFormatted = lastSunday.format(DateTimeFormatter.ofPattern("M.d"));
         list.add(lastSundayFormatted);
         LocalDate monday = lastSunday.plusDays(1);
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < WEEKDAYNUM; i++) {
             String formattedDate = monday.plusDays(i).format(DateTimeFormatter.ofPattern("M.d"));
             list.add(formattedDate);
         }
@@ -520,5 +565,12 @@ public class DmtrTest {
     public String devideNum(int a, int b) {
         return String.format("%.1f", ((float) a / b) * 100) + "%";
     }
+
+    @Test
+    public void deleteByMajor(){
+        dmtrMapper.deleteByMajor(majorMapper.selectId("通信"));
+
+    }
+
 
 }

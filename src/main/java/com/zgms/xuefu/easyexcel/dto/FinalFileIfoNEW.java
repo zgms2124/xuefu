@@ -5,6 +5,8 @@ import com.alibaba.excel.annotation.write.style.*;
 import com.alibaba.excel.enums.poi.HorizontalAlignmentEnum;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
 
+import static com.zgms.xuefu.easyexcel.consts.Consts.WEEKDAYNUM;
+
 /**
  * 学习JAVA
  *

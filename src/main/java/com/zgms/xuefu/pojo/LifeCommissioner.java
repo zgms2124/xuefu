@@ -1,5 +1,6 @@
 package com.zgms.xuefu.pojo;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -16,38 +17,27 @@ import java.time.LocalDateTime;
  */
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class LifeCommissioner {
     private Integer id;
-    private Integer cnt;
-    private LocalDateTime createTime;
-    private LocalDateTime updateTime;
     private String name;
     private int building;
+    private LocalDateTime createTime;
+    private LocalDateTime updateTime;
+    private Integer cnt;
     private int year;
+    private Integer unCnt;
+    private String unWriteDate;
+    private String klass;
 
-    public int getYear() {
-        return year;
-    }
-
-    public void setYear(int year) {
-        this.year = year;
-    }
-
-    public LifeCommissioner(LocalDateTime createTime, LocalDateTime updateTime, String name, int building, Integer cnt, int year) {
-        this.id = id;
+    public LifeCommissioner(String name, int building, LocalDateTime createTime, LocalDateTime updateTime, Integer cnt, int year, Integer unCnt, String klass) {
+        this.name = name;
+        this.building = building;
+        this.createTime = createTime;
+        this.updateTime = updateTime;
         this.cnt = cnt;
-        this.createTime = createTime;
-        this.updateTime = updateTime;
-        this.name = name;
-        this.building = building;
         this.year = year;
-    }
-
-    public LifeCommissioner(LocalDateTime createTime, LocalDateTime updateTime, String name, int building, int cnt) {
-        this.createTime = createTime;
-        this.updateTime = updateTime;
-        this.name = name;
-        this.building = building;
-        this.cnt=cnt;
+        this.unCnt = unCnt;
+        this.klass = klass;
     }
 }

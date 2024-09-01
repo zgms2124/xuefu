@@ -2,8 +2,8 @@ package com.zgms.xuefu;
 
 import com.zgms.xuefu.mapper.BuildingMapper;
 import com.zgms.xuefu.mapper.DmtrMapper;
+import com.zgms.xuefu.mapper.LifeCommissionerMapper;
 import com.zgms.xuefu.mapper.MajorMapper;
-import com.zgms.xuefu.mapper.LifeCommissonerMapper;
 import com.zgms.xuefu.pojo.Building;
 import com.zgms.xuefu.pojo.Dmtr;
 import com.zgms.xuefu.pojo.Major;
@@ -28,7 +28,7 @@ class XuefuApplicationTests {
     private DmtrMapper dmtrMapper;
 
     @Autowired
-    private LifeCommissonerMapper lifeCommissonerMapper;
+    private LifeCommissionerMapper lifeCommissonerMapper;
 
     @Test
     void contextLoads() {
@@ -222,13 +222,5 @@ class XuefuApplicationTests {
 
 
 
-    @Test
-    public void ttt(){
-        Scanner scanner=new Scanner(System.in);
-        while (true){
-            String str=scanner.nextLine();
-            if("over".equals(str)) break;
-            lifeCommissonerMapper.setCnt(lifeCommissonerMapper.selectByName(str).getId(),lifeCommissonerMapper.selectCount(str)+1,LocalDateTime.now());
-        }
-    }
+
 }
